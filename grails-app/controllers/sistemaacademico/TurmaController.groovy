@@ -99,4 +99,9 @@ class TurmaController {
             redirect(action: "show", id: id)
         }
     }
+	
+	def turmasPorProfessor() {
+		def turmas = Turma.list()
+		[turmas: turmas]
+	}
 }
