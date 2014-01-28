@@ -6,8 +6,9 @@ class UrlMappings {
 				// apply constraints here
 			}
 		}
-
-		"/"(view:"/index")
+		"/"(controller: 'login', action: 'preLogin')
 		"500"(view:'/error')
+		"404" (view: '/error404')
 	}
+
 }

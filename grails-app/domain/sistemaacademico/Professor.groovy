@@ -20,6 +20,7 @@ class Professor {
 				return false
 			}
 		}
+		turma nullable: true, blank: true
 	}
 	
 	static mapping = {
