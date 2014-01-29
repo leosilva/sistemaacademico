@@ -29,6 +29,14 @@
 					<g:submitButton name="loginButton" value="${message(code: 'default.login.button.label')}" />
 				</fieldset>
 			</g:form>
+			
+			<g:link action="showTime" controller="login" elementId="timeLink">Show the Time!</g:link>
+			<div id="time" />
+			<r:script>
+				$("#timeLink").click(function(){
+					$("#time").load(this.href); return false;
+				});
+			</r:script>
 		</div>
 	</body>
 </html>
