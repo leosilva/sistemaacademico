@@ -11,7 +11,7 @@
 					var json = JSON.stringify($('#saveForm').serializeJSON());
 					var dados = {json: json}
 					$.ajax({
-				        url: "${createLink(controller: 'professor', action: 'createWithJSON')}",
+				        url: "${createLink(controller: 'professor', action: 'saveWithJSON')}",
 				        type: "POST",
 				        data : dados,
 				        success: function(data) {

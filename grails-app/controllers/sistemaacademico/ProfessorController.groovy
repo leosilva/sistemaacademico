@@ -102,7 +102,7 @@ class ProfessorController {
 		render professores as JSON
 	}
 	
-	def createWithJSON() {
+	def saveWithJSON() {
 		def professor = (JSON.parse(params.json)) as Professor
 		performSave(professor)
 	}
