@@ -5,6 +5,22 @@
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'professor.label', default: 'Professor')}" />
 		<title><g:message code="default.create.label" args="[entityName]" /></title>
+		<script>
+			$(document).ready(function() {
+				$("#createWithJSON").click(function(e) {
+					var json = JSON.stringify($('#saveForm').serializeJSON());
+					var dados = {json: json}
+					$.ajax({
+				        url: "${createLink(controller: 'professor', action: 'createWithJSON')}",
+				        type: "POST",
+				        data : dados,
+				        success: function(data) {
+			        		console.log(data);
+				        },
+				    });
+				});
+			});
+		</script>
 	</head>
 	<body>
 		<a href="#create-professor" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
@@ -26,12 +42,13 @@
 				</g:eachError>
 			</ul>
 			</g:hasErrors>
-			<g:form action="save" >
+			<g:form action="save" name='saveForm' id="saveForm">
 				<fieldset class="form">
 					<g:render template="form"/>
 				</fieldset>
 				<fieldset class="buttons">
 					<g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
+					<a href='#' id="createWithJSON" class="save">${message(code: 'default.button.create.json.label', default: 'Create with JSON')}</a>
 				</fieldset>
 			</g:form>
 		</div>

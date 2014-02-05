@@ -1,11 +1,14 @@
 package sistemaacademico
 
+
+import grails.converters.JSON
+
 import org.springframework.dao.DataIntegrityViolationException
 
 class ProfessorController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
-
+	
     def index() {
         redirect(action: "list", params: params)
     }
@@ -21,13 +24,7 @@ class ProfessorController {
 
     def save() {
         def professorInstance = new Professor(params)
-        if (!professorInstance.save(flush: true)) {
-            render(view: "create", model: [professorInstance: professorInstance])
-            return
-        }
-
-        flash.message = message(code: 'default.created.message', args: [message(code: 'professor.label', default: 'Professor'), professorInstance.id])
-        redirect(action: "show", id: professorInstance.id)
+        performSave(professorInstance)
     }
 
     def show(Long id) {
@@ -99,4 +96,25 @@ class ProfessorController {
             redirect(action: "show", id: id)
         }
     }
+	
+	def getAsJSON() {
+		def professores = Professor.list()
+		render professores as JSON
+	}
+	
+	def createWithJSON() {
+		def professor = (JSON.parse(params.json)) as Professor
+		performSave(professor)
+	}
+	
+	private def performSave(professorInstance) {
+		if (!professorInstance.save(flush: true)) {
+			render(view: "create", model: [professorInstance: professorInstance])
+			return
+		}
+
+		flash.message = message(code: 'default.created.message', args: [message(code: 'professor.label', default: 'Professor'), professorInstance.id])
+		redirect(action: "show", id: professorInstance.id)
+	}
+	
 }

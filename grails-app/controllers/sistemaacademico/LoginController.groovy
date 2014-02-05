@@ -24,4 +24,14 @@ class LoginController {
 	def showTime() {
 		render "The time is ${new Date()}"
 	}
+	
+	def verificaLoginExistente() {
+		def logins = Login.list()
+		def login = logins.find { (it.login == params.login) }
+		if (login) {
+			render "Login ja existente!"
+		} else {
+			render ""
+		}
+	}
 }
