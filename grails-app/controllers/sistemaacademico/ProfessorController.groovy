@@ -9,6 +9,8 @@ class ProfessorController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 	
+	ProfessorService professorService
+	
     def index() {
         redirect(action: "list", params: params)
     }
@@ -24,7 +26,7 @@ class ProfessorController {
 
     def save() {
         def professorInstance = new Professor(params)
-        performSave(professorInstance)
+        postSave(professorService.performSave(professorInstance))
     }
 
     def show(Long id) {
@@ -104,17 +106,16 @@ class ProfessorController {
 	
 	def saveWithJSON() {
 		def professor = (JSON.parse(params.json)) as Professor
-		performSave(professor)
+		postSave(professorService.performSave(professor))
 	}
 	
-	private def performSave(professorInstance) {
-		if (!professorInstance.save(flush: true)) {
-			render(view: "create", model: [professorInstance: professorInstance])
-			return
+	def postSave(listaResultante) {
+		if (listaResultante[0]) {
+			flash.message = message(code: 'default.created.message', args: [message(code: 'professor.label', default: 'Professor'), listaResultante[1].id])
+			redirect(action: "show", id: listaResultante[1].id)
+		} else {
+			render(view: "create", model: [professorInstance: listaResultante[1]])
 		}
-
-		flash.message = message(code: 'default.created.message', args: [message(code: 'professor.label', default: 'Professor'), professorInstance.id])
-		redirect(action: "show", id: professorInstance.id)
 	}
 	
 }

@@ -12,7 +12,7 @@
 	</g:form>
 	${flash?.message}
 	<script>
-		$("#loginButton").click(function(e) {
+		$("#loginForm").submit(function(e) {
 		    var postData = $('#loginForm').serializeArray();
 		    $.ajax({
 		        url: "${createLink(controller: 'login', action: 'login')}",
@@ -23,6 +23,7 @@
 		        },
 		    });
 		    e.preventDefault();
+		    return false;
 		});
 	</script>
 </g:if>
