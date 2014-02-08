@@ -89,3 +89,13 @@ log4j = {
            'org.hibernate',
            'net.sf.ehcache.hibernate'
 }
+
+grails.cache.config = {
+	cache {
+		name 'listProfessores'
+		timeToLiveSeconds 3600
+		overflowToDisk true
+		maxElementsInMemory 10000
+		maxElementsOnDisk 10000000
+	}
+}
