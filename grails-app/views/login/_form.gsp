@@ -17,4 +17,3 @@
 	</label>
 	<g:field type="password" name="senha" required="" value="${loginInstance?.senha}"/>
 </div>
-

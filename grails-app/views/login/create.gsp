@@ -62,6 +62,33 @@
 						</label>
 						<g:field type="password" name="senha" required="" value="${loginInstance?.senha}"/>
 					</div>
+					
+					<div class="fieldcontain required">
+						<img src="${createLink(controller: 'simpleCaptcha', action: 'captcha')}"/>
+					</div>
+					<div class="fieldcontain required">
+						<label for="captcha">
+							<g:message code="captcha.message" />
+							<span class="required-indicator">*</span>
+						</label>
+						<g:textField name="captcha" required="" />
+						<script>
+							$('#captcha').blur(function() {
+								var dados = {'captcha' : $("#captcha").val()}
+								$.ajax({
+									url: "${createLink(controller: 'login', action: 'validateCaptcha')}",
+									type: "POST",
+									data: dados,
+									success: function(result) {
+										if (result == "false") {
+											$("#captcha").val('');
+										}
+									}
+								});
+							});
+						</script>
+					</div>
+					
 				</fieldset>
 				<fieldset class="buttons">
 					<g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />

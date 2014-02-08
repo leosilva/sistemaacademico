@@ -3,6 +3,8 @@ package sistemaacademico
 class LoginController {
 	
 	static scaffold = true
+	
+	def simpleCaptchaService
 
 	def login() {
 		def logins = Login.list()
@@ -33,5 +35,9 @@ class LoginController {
 		} else {
 			render ""
 		}
+	}
+	
+	def validateCaptcha() {
+		render simpleCaptchaService.validateCaptcha(params.captcha)
 	}
 }

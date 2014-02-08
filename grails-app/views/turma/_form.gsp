@@ -10,6 +10,19 @@
 	<g:field name="codigo" type="number" value="${turmaInstance.codigo}" required=""/>
 </div>
 
+<div class="fieldcontain ${hasErrors(bean: turmaInstance, field: 'dataInicial', 'error')} required">
+	<label for="dataInicial">
+		<g:message code="turma.dataInicial.label" default="Data Inicial" />
+		<span class="required-indicator">*</span>
+	</label>
+	<g:textField name="dataInicial" value="${turmaInstance.dataInicial}" required=""/>
+	<script type="text/javascript">
+        $(document).ready(function() {
+          $("#dataInicial").datepicker({dateFormat: 'dd/mm/yy'});
+        })
+    </script>
+</div>
+
 <div class="fieldcontain ${hasErrors(bean: turmaInstance, field: 'alunos', 'error')} ">
 	<label for="alunos">
 		<g:message code="turma.alunos.label" default="Alunos" />
